@@ -2,19 +2,34 @@ NAME
     SHARYANTO::Dist::Util - Dist-related utilities
 
 VERSION
-    version 0.01
+    version 0.02
 
 SYNOPSIS
      use SHARYANTO::Dist::Util qw(
          packlist_for
+         list_dist_modules
      );
+
+     say packlist_for("Text::ANSITable"); # sample output: /home/steven/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/x86_64-linux/auto/Text/ANSITable/.packlist
+     my @mods = list_dist_modules("Text::ANSITable"); # -> ()
 
 DESCRIPTION
 FUNCTIONS
   packlist_for($mod) => STR
-    Find ".packlist" file for module $mod (which can be in the form of
-    "Package::SubPkg" or "Package/SubPkg.pm"). Return undef if none is
-    found.
+    Find ".packlist" file for installed module $mod (which can be in the
+    form of "Package::SubPkg" or "Package/SubPkg.pm"). Return undef if none
+    is found.
+
+    Depending on the content of @INC, the returned path may be absolute or
+    relative.
+
+  list_dist_modules($mod) => LIST
+    Given installed module name $mod (which must be the name of the main
+    module of its distribution), list all the modules. This is done by first
+    finding the ".packlist" file, then look at all the ".pm" files listed in
+    the packlist.
+
+    Will return empty list if fails to get the packlist.
 
 SEE ALSO
     SHARYANTO

@@ -1,0 +1,82 @@
+#!/usr/bin/env perl
+
+use 5.010;
+use strict;
+use warnings;
+
+use SHARYANTO::Dist::Util qw(packlist_for);
+
+our $VERSION = '0.02'; # VERSION
+
+my $has_error;
+
+unless (@ARGV) {
+    warn "packlist-for: Please specify at least one module\n";
+    exit 99;
+}
+
+for (@ARGV) {
+    my $packlist = packlist_for($_);
+    if (defined $packlist) {
+        print +(@ARGV > 1 ? "$_\t" : ""), $packlist, "\n";
+    } else {
+        $has_error++;
+        warn "packlist-for: packlist for $_ not found\n";
+    }
+}
+
+exit($has_error ? 1:0);
+
+# ABSTRACT: Locate .packlist for installed Perl module
+# PODNAME: packlist-for
+
+__END__
+
+=pod
+
+=encoding UTF-8
+
+=head1 NAME
+
+packlist-for - Locate .packlist for installed Perl module
+
+=head1 VERSION
+
+version 0.02
+
+=head1 SYNOPSIS
+
+ % packlist-for Text::ANSITable Foo
+ Text::ANSITable: /home/steven/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/x86_64-linux/auto/Text/ANSITable/.packlist
+ packlist for Foo not found
+
+=head1 DESCRIPTION
+
+=head1 HOMEPAGE
+
+Please visit the project's homepage at L<https://metacpan.org/release/SHARYANTO-Dist-Util>.
+
+=head1 SOURCE
+
+Source repository is at L<https://github.com/sharyanto/perl-SHARYANTO-Dist-Util>.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website L<https://rt.cpan.org/Public/Dist/Display.html?Name=SHARYANTO-Dist-Util>
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Steven Haryanto <stevenharyanto@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2014 by Steven Haryanto.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
