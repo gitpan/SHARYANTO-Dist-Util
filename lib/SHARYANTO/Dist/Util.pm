@@ -14,7 +14,7 @@ our @EXPORT_OK = qw(
                        list_dist_modules
                );
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 sub packlist_for {
     my $mod = shift;
@@ -85,7 +85,7 @@ SHARYANTO::Dist::Util - Dist-related utilities
 
 =head1 VERSION
 
-version 0.02
+This document describes version 0.03 of SHARYANTO::Dist::Util (from Perl distribution SHARYANTO-Dist-Util), released on 2014-07-02.
 
 =head1 SYNOPSIS
 
@@ -95,7 +95,7 @@ version 0.02
  );
 
  say packlist_for("Text::ANSITable"); # sample output: /home/steven/perl5/perlbrew/perls/perl-5.18.2/lib/site_perl/5.18.2/x86_64-linux/auto/Text/ANSITable/.packlist
- my @mods = list_dist_modules("Text::ANSITable"); # -> ()
+ my @mods = list_dist_modules("Text::ANSITable"); # -> ("Text::ANSITable", "Text::ANSITable::BorderStyle::Default", "Text::ANSITable::ColorTheme::Default")
 
 =head1 DESCRIPTION
 
@@ -112,8 +112,9 @@ relative.
 =head2 list_dist_modules($mod) => LIST
 
 Given installed module name C<$mod> (which must be the name of the main module
-of its distribution), list all the modules. This is done by first finding the
-C<.packlist> file, then look at all the C<.pm> files listed in the packlist.
+of its distribution), list all the modules in the distribution. This is done by
+first finding the C<.packlist> file, then look at all the C<.pm> files listed in
+the packlist.
 
 Will return empty list if fails to get the packlist.
 
