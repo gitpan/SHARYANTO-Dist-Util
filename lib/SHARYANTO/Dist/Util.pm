@@ -14,7 +14,7 @@ our @EXPORT_OK = qw(
                        list_dist_modules
                );
 
-our $VERSION = '0.03'; # VERSION
+our $VERSION = '0.04'; # VERSION
 
 sub packlist_for {
     my $mod = shift;
@@ -33,6 +33,9 @@ sub packlist_for {
 
 sub list_dist_modules {
     my $mod = shift;
+
+    # convenience: convert Foo-Bar to Foo::Bar
+    $mod =~ s/-/::/g;
 
     my $packlist = packlist_for($mod);
     return () unless $packlist;
@@ -85,7 +88,7 @@ SHARYANTO::Dist::Util - Dist-related utilities
 
 =head1 VERSION
 
-This document describes version 0.03 of SHARYANTO::Dist::Util (from Perl distribution SHARYANTO-Dist-Util), released on 2014-07-02.
+This document describes version 0.04 of SHARYANTO::Dist::Util (from Perl distribution SHARYANTO-Dist-Util), released on 2014-11-20.
 
 =head1 SYNOPSIS
 
@@ -140,11 +143,11 @@ feature.
 
 =head1 AUTHOR
 
-Steven Haryanto <stevenharyanto@gmail.com>
+perlancar <perlancar@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Steven Haryanto.
+This software is copyright (c) 2014 by perlancar@cpan.org.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
